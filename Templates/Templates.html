@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Punjabi Idiom Search</title>
+    <style>
+        .idiom-translation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 50vh;
+            position: relative;
+        }
+
+        .idiom-translation form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4285f4;
+            box-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+        }
+
+        button {
+            padding: 10px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 24px;
+            background-color: #4285f4;
+            color: white;
+            cursor: pointer;
+        }
+
+        button[type="button"] {
+            background-color: #d3d3d3;
+            color: #333;
+        }
+
+        #suggestions {
+            list-style: none;
+            padding: 0;
+            margin-top: -10px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            position: absolute;
+            background-color: white;
+            z-index: 1000;
+        }
+
+        #suggestions li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #suggestions li:hover {
+            background-color: #f0f0f0;
+        }
+
+        label {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <section class="idiom-translation">
+        <form method="POST" autocomplete="off">
+            <label for="punjabi-idiom">Enter Punjabi Muharave (Idiom):</label>
+            <input type="text" id="searchBox" name="query" placeholder="Enter a keyword" value="{{ keyword }}" required>
+            <ul id="suggestions"></ul>
+            <button type="submit">Search</button>
+            <button type="button" onclick="clearSearch()">Clear</button>
+        </form>
+    </section>
+
+    {% if results %}
+        <h2 style="text-align:center;">Search Results</h2>
+        <ul>
+            {% for row in results %}
+                <li>
+                    <strong>Punjabi Idiom:</strong> {{ row[0] }}<br>
+                    <strong>English Meaning:</strong> {{ row[1] }}<br>
+                    {% if row[2] and row[2]|length > 0 %}
+                        <strong>Equivalent English Idiom:</strong> {{ row[2] }}<br>
+                    {% endif %}
+                </li><br>
+            {% endfor %}
+        </ul>
+    {% elif keyword %}
+        <p style="text-align:center;">No results found for "<strong>{{ keyword }}</strong>"</p>
+    {% endif %}
+
+    <script>
+        const input = document.getElementById('searchBox');
+        const suggestionsList = document.getElementById('suggestions');
+
+        input.addEventListener('input', () => {
+            const query = input.value;
+            if (query.length < 1) {
+                suggestionsList.innerHTML = '';
+                return;
+            }
+
+            fetch(`/suggest?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsList.innerHTML = '';
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        li.addEventListener('click', () => {
+                            input.value = item;
+                            suggestionsList.innerHTML = '';
+                        });
+                        suggestionsList.appendChild(li);
+                    });
+                });
+        });
+
+        function clearSearch() {
+            document.getElementById('searchBox').value = "";
+            document.getElementById('suggestions').innerHTML = "";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+.topheader {
+    width: 100%;
+    height:auto;
+    background-color:rgba(0, 0, 0, 0.966);
+  }
+  .container {
+    width: 1170px;
+    height: auto;
+    margin: 0 auto;
+  
+  }
+  
+  .container .header {
+    width: 100%;
+    height:400px;
+    background-color:rgb(248, 236, 220);
+  
+  }
+  .container .header .image-container{
+  
+    width: 100%;
+    height:400px;
+    background-image: url("image.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: cover;
+  
+  }
+  
+  .idiom-translation {
+    margin-bottom: 30px;
+    text-align: center;
+  
+  }
+  
+
+  .idiom-translation label {
+    padding: 15px;
+    font-size: 1.2em;
+    color: #f1efef;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+}
+
+  
+  
+  .idiom-translation button {
+    
+    top: 617px;
+    left: 44%;
+    background-color: #00ccff;
+    color:#fff;
+    font-size: 17.5px;
+    width: 150px;
+    height:45px;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    
+  }
+  
+  .idiom-translation button:hover {
+    background-color: #dca9e4;
+    color:#0c0a0a;
+  }
+  
+  #suggestions {
+    list-style: none;
+    padding: 0;
+    margin-top: -10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+}
+
+#suggestions li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#suggestions li:hover {
+    background-color: #f0f0f0;
+}
+
+  .result {
+    margin-top: 40px;
+    padding: 10px;
+    background-color: #f8e9e3;
+    border-radius: 5px;
+  }
+  
+  .result h2 {
+    font-size: 20px;
+    color: #000000;
+  }
+  .result h3 {
+    font-size: 20px;
+    color: #000000;
+  }
+  
+  .result p {
+    font-size: 16px;
+    color: #3d3d3d;
+  }
+  
+  .container .header .textlocation {
+    position: absolute;
+    top: 100px;
+    left: 33%;
+    color: rgb(71, 3, 66);
+    font-weight: bold;
+    text-align: center;
+    font-size: 38px;
+    font-family: cursive;
+  }
+  

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="{{url_for('static', filename='stylepb (3).css')}}">
+    <title>Punjabi Proverbs Translation</title>
+</head>
+<body>
+    <!-- class for the formation of the navigation bar  -->
+    <div class="topheader"> 
+        <div class="container"> 
+            <div class="header"> 
+                <div class="textlocation">
+                    <h1>ਪੰਜਾਬ VERSE</h1>
+                </div>
+                <div class="image-container"></div>
+            </div>
+            
+            <div class="contentrow">
+                <section class="idiom-translation">
+                    <form method="POST" >
+                        <label for="punjabi-idiom">Enter Punjabi Muharave (Idiom) :</label>
+                        <input type="text" name="query" placeholder="Enter a keyword" value="{{ keyword }}" required>
+                        <button type="submit" value="Search">Search</button>
+                        <button type="button" onclick="clearSearch()">Clear</button>
+                        
+                    </form>
+                </section>
+
+                <div class="result">
+                    {% if results %}
+                    {% for row in results %}
+                    <h2>ਪੰਜਾਬੀ: {{row[0]}}</h2>
+                    <h2>Meaning :</h2>
+                    <p>{{ row[1]}}</p>
+                    {% if row[2] and row[2]|length > 0 %}
+                    <h3>Equivalent English Idiom :</h3>
+                    
+                    <p>{{ row[2]}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% endif %}
+                </div>    
+            </div>
+        </div>
+    </div>
+    <script>
+        function clearSearch() {
+            document.querySelector('input[name="query"]').value = "";
+        }
+    </script>
+</body>
+</html>

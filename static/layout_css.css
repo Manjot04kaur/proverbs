@@ -1,0 +1,200 @@
+.topheader {
+  width: 100%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.966);
+}
+
+.container {
+  max-width: 1170px;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.container .header {
+  width: 100%;
+  height: auto;
+  background-color: rgb(248, 236, 220);
+  position: relative;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.container .header .image-container {
+  width: 100%;
+  height: 400px;
+  background-image: url("image.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.idiom-translation {
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.idiom-translation label {
+  padding: 15px;
+  font-size: 1.2em;
+  color: #f1efef;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.idiom-translation input {
+  width: 90%;
+  max-width: 500px;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  margin-bottom: 10px;
+  transition: border-bottom 0.3s ease;
+}
+
+.idiom-translation input:focus {
+  outline: none;
+  border-bottom: 2px solid #00ccff;
+}
+
+
+.idiom-translation button {
+  background-color: #00ccff;
+  color: #fff;
+  font-size: 17.5px;
+  width: 150px;
+  height: 45px;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.idiom-translation button:hover {
+  background-color: #dca9e4;
+  color: #0c0a0a;
+}
+
+.result {
+  margin-top: 40px;
+  padding: 10px;
+  background-color: #f8e9e3;
+  border-radius: 5px;
+}
+
+.result h2, .result h3 {
+  font-size: 20px;
+  color: #000000;
+}
+
+.result p {
+  font-size: 16px;
+  color: #3d3d3d;
+}
+
+.container .header .textlocation {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(71, 3, 66);
+  font-weight: bold;
+  text-align: center;
+  font-size: 38px;
+  font-family: cursive;
+  width: 90%;
+}
+
+#suggestions {
+  list-style: none;
+  padding: 0;
+  margin-top: -10px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+}
+
+#suggestions li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 50px;
+  color: red;
+  cursor: pointer;
+  display: none;
+  z-index: 10;
+}
+
+/* 🌐 Responsive Breakpoints */
+@media (max-width: 768px) {
+  .container .header .image-container {
+    height: 250px;
+  }
+
+  .container .header .textlocation {
+    font-size: 28px;
+    top: 70px;
+  }
+
+  .idiom-translation input {
+    width: 95%;
+  }
+
+  .idiom-translation button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .result h2, .result h3 {
+    font-size: 18px;
+  }
+
+  .result p {
+    font-size: 15px;
+  }
+
+  .clear-btn {
+    font-size: 35px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container .header .textlocation {
+    font-size: 22px;
+    top: 50px;
+  }
+
+  .idiom-translation label {
+    font-size: 1em;
+  }
+
+  .idiom-translation button {
+    font-size: 16px;
+    height: 40px;
+  }
+}

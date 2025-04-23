@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punjabi Proverbs Translation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='layout_css.css') }}" />
+ 
+</head>
+<body>
+  <div class="topheader">
+    <div class="container">
+      <div class="header">
+        <div class="textlocation">
+          <h1>ਪੰਜਾਬ VERSE</h1>
+        </div>
+        <div class="image-container"></div>
+      </div>
+
+      <div class="contentrow">
+        <section class="idiom-translation">
+          <form method="POST" autocomplete="off" id="searchForm">
+            <label for="punjabi-idiom">Enter Punjabi Muharave (Idiom):</label>
+            <div class="search-wrapper">
+              <input
+                type="text"
+                id="searchBox"
+                name="query"
+                placeholder="Enter a keyword"
+                value="{{ keyword }}"
+                required
+              />
+              <span id="clearInputBtn" class="clear-btn">&times;</span>
+              <ul id="suggestions"></ul>
+            </div>
+            <input type="hidden" name="selected" id="selectedValue" value="false" />
+            <button type="submit">Search</button>
+            <button type="button" onclick="clearSearch()">Clear</button>
+          </form>
+        </section>
+
+        <div class="result">
+          {% if results %}
+          {% for row in results %}
+          <h2>ਪੰਜਾਬੀ: {{ row[0] }}</h2>
+          <p><strong>Romanized:</strong> {{ row[1] }}</p>
+          <h2>Meaning:</h2>
+          <p>{{ row[2] }}</p>
+          {% if row[3] and row[3]|length > 0 %}
+              <h3>Equivalent English Idiom:</h3>
+              <p>{{ row[3] }}</p>
+          {% endif %}
+      {% endfor %}
+      
+            {% elif message %}
+            <p style="color: red;">{{ message }}</p>
+        {% endif %}
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("searchBox");
+    const suggestionsList = document.getElementById("suggestions");
+    const selectedField = document.getElementById("selectedValue");
+    const clearInputBtn = document.getElementById("clearInputBtn");
+
+    input.addEventListener("input", () => {
+      selectedField.value = "false";
+      clearInputBtn.style.display = input.value ? "block" : "none";
+
+      const query = input.value;
+      if (query.length < 1) {
+        suggestionsList.innerHTML = "";
+        return;
+      }
+
+      fetch(`/suggest?q=${encodeURIComponent(query)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          suggestionsList.innerHTML = "";
+          data.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            li.addEventListener("click", () => {
+              input.value = item;
+              selectedField.value = "true";
+              suggestionsList.innerHTML = "";
+              clearInputBtn.style.display = "block";
+            });
+            suggestionsList.appendChild(li);
+          });
+        });
+    });
+
+    clearInputBtn.addEventListener("click", () => {
+      input.value = "";
+      suggestionsList.innerHTML = "";
+      selectedField.value = "false";
+      clearInputBtn.style.display = "none";
+    });
+
+    function clearSearch() {
+      document.querySelector(".result").innerHTML = "";
+    }
+    // Close suggestion dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const isClickInsideInput = input.contains(event.target);
+    const isClickInsideSuggestions = suggestionsList.contains(event.target);
+
+    if (!isClickInsideInput && !isClickInsideSuggestions) {
+        suggestionsList.innerHTML = '';
+    }
+});
+
+  </script>
+</body>
+</html>
